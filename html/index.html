@@ -16,11 +16,6 @@
 					<div class="card-content">
 						<form id="control">
 							<div class="field">
-								<label class="label">Текущее время</label>
-								<div class="control">
-									<input id="time" class="input" name="time" type="time" /> </div>
-							</div>
-							<div class="field">
 								<label class="label">Температура в режиме <span class="has-text-success">КОМФОРТ</span></label>
 								<div class="control">
 									<input class="input" name="comfort" type="text" value="20" placeholder="20"> </div>
@@ -70,17 +65,17 @@
 		</div>
 	</div>
 	<script>
-	const now = new Date();
-	const time = now.getHours() + ":" + now.getMinutes();
-	document.getElementById("time").value = time;
-	
 	document.getElementById("control").addEventListener("submit", function(e) {
 		e.preventDefault();
+		alert("Настройки обновлены");
+		
 		const fd = new FormData(this);
 		
 		let start = fd.get("start");
 		let end = fd.get("end");
-		let time = fd.get("time");
+		
+		const now = new Date();
+		let time = now.getHours() + ":" + now.getMinutes();
 		
 		start = timeConvert(start.split(":"));
 		end = timeConvert(end.split(":"));
@@ -103,9 +98,9 @@
 		fetch('/data', {
 			method: 'GET',
 		}).then((response) => {
-			return response.json();
+			return response.text();
 		}).then((data) => {
-			document.getElementById("temp").textContent = data.temp;
+			document.getElementById("temp").textContent = data;
 		});
 	}, 1000);
 	</script>

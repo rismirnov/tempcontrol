@@ -5,12 +5,12 @@
 class Sensor
 {
 protected:
-    int _data;
-    int _address;
+    int m_data;
+    int m_address;
 public:
     Sensor();
     void setAddress(int address);
-    int data() const;
+    int getData() const;
     virtual void measure() = 0;
 };
 

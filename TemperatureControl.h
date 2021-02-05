@@ -2,11 +2,7 @@
 #define CONTROL_H
 #pragma once
 
-namespace TemperatureControl {
-
 #include "monitor.h"
-#include "pid.h"
-
-}
+#include "relay.h"
 
 #endif // CONTROL_H

@@ -6,8 +6,8 @@ Sensor::Sensor()
 }
 
 void Sensor::setAddress(int address) {
-    _address = address;
+    m_address = address;
 }
-int Sensor::data() const {
-    return _data;
+int Sensor::getData() const {
+    return m_data;
 }

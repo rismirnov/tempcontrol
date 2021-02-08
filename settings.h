@@ -13,10 +13,10 @@ class Settings
 friend class Monitor;
 
 private:
-    unsigned int m_startTime;
-    unsigned int m_endTime;
-    short m_economTemp;
-    short m_comfortTemp;
+    unsigned int startTime;
+    unsigned int endTime;
+    short economTemp;
+    short comfortTemp;
 
 public:
     Settings();

@@ -6,13 +6,9 @@ Regulator::Regulator()
 }
 
 void Regulator::setValue(float value) {
-    m_value = value;
-}
-
-void Regulator::setDeadband(int deadband) {
-    m_deadband = deadband;
+    this->value = value;
 }
 
 void Regulator::setMotor(Motor* motor) {
-    m_motor = motor;
+    this->motor = motor;
 }

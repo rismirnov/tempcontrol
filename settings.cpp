@@ -6,17 +6,17 @@ Settings::Settings()
 }
 
 void Settings::setStartTime(unsigned int startTime) {
-    m_startTime = startTime;
+    this->startTime = startTime;
 }
 
 void Settings::setEndTime(unsigned int endTime) {
-    m_endTime = endTime;
+    this->endTime = endTime;
 }
 
 void Settings::setEconomTemp(short economTemp) {
-    m_economTemp = economTemp;
+    this->economTemp = economTemp;
 }
 
 void Settings::setComfortTemp(short comfortTemp) {
-    m_comfortTemp = comfortTemp;
+    this->comfortTemp = comfortTemp;
 }

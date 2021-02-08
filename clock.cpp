@@ -6,38 +6,38 @@ Clock::Clock()
 }
 
 int Clock::getTime() const {
-    return m_time;
+    return time;
 }
 
-void Clock::setTime(int milsec) {
-    m_time = milsec;
+void Clock::setTime(int time) {
+    this->time = time;
 }
 
-void Clock::setPeriod(int milsec) {
-    m_period = milsec;
+void Clock::setPeriod(int period) {
+    this->period = period;
 }
 
 void Clock::tick() {
-    m_time += m_period;
-    if(m_time > MAX_TIME) {
-        m_time = m_time - MAX_TIME;
+    time += period;
+    if(time > MAX_TIME) {
+        time = time - MAX_TIME;
     }
 
-    m_timer -= m_period;
-    if(m_timer <= 0) {
-       m_timer = m_interval;
-       if(m_callback != nullptr) {
-            m_callback();
+    timer -= period;
+    if(timer <= 0) {
+       timer = interval;
+       if(callback != nullptr) {
+            callback();
        }
     }
 }
 
-void Clock::setInterval(int _interval, void (*_callback)()) {
-    m_interval = _interval;
-    m_timer = _interval;
-    m_callback = _callback;
+void Clock::setInterval(int interval, void (*callback)()) {
+    this->interval = interval;
+    this->timer = interval;
+    this->callback = callback;
 }
 
 int Clock::getInterval() const {
-    return m_interval;
+    return interval;
 }

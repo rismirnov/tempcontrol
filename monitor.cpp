@@ -4,42 +4,34 @@ Monitor::Monitor()
 {
 }
 
-bool Monitor::isEconomTime() {
+bool Monitor::isEconomTime()
+{
     unsigned int currentTime = clock->getTime();
-    unsigned int deltaTime = settings->endTime; // - controlTime;
-
-    if(settings->startTime < currentTime && currentTime < deltaTime) {
-            return true;
-    }
-     return false;
+    if (settings->startTime < currentTime && currentTime < settings->endTime)
+        return true;
+    else
+        return false;
 }
 
-void Monitor::identification() {
-    // Записан массив отсчетов за сутки
+void Monitor::calculateControlMode()
+{
+    if (isEconomTime())
+        regulator->setSetpoint(settings->economTemp);
+    else
+        regulator->setSetpoint(settings->comfortTemp);
 }
 
-void Monitor::work() {
-    identification();
-
-    if(isEconomTime()) {
-        regulator->setValue(settings->economTemp);
-    } else {
-        regulator->setValue(settings->comfortTemp);
-    }
-}
-
-void Monitor::setRegulator(Regulator* regulator) {
+void Monitor::setRegulator(Regulator *regulator)
+{
     this->regulator = regulator;
 }
 
-void Monitor::setClock(const Clock* clock) {
+void Monitor::setClock(const Clock *clock)
+{
     this->clock = clock;
 }
 
-void Monitor::setSettings(const Settings* settings) {
+void Monitor::setSettings(const Settings *settings)
+{
     this->settings = settings;
-}
-
-void Monitor::subscribe(void(*observer)(Room room)) {
-    this->observer = observer;
 }

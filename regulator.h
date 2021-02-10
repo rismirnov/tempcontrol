@@ -1,21 +1,22 @@
 #ifndef REGULATOR_H
 #define REGULATOR_H
-#include "motor.h"
+#include "math.h"
+#include "clock.h"
 #pragma once
 
 class Regulator {
 protected:
-    float value = 0;
-    Motor* motor;
+    float setpoint = 0;
+    float error = 0;
 public:
     static int CONTROL_PRECISION;
-    
     Regulator();
-    // уставка
-    void setValue(float value);
-    // регулирование
-    virtual void control(float y) = 0;
-    void setMotor(Motor* motor);
+    
+    //virtual int control(float value) = 0;
+
+    void setSetpoint(float setpoint);
+    float getError();
+    float getSetpoint();
 
 };
 

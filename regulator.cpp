@@ -1,14 +1,16 @@
 #include "regulator.h"
 
-Regulator::Regulator()
-{
+Regulator::Regulator() {}
 
+void Regulator::setSetpoint(float setpoint) {
+    this->setpoint = setpoint;
 }
 
-void Regulator::setValue(float value) {
-    this->value = value;
+float Regulator::getError() {
+    return error;
 }
-
-void Regulator::setMotor(Motor* motor) {
-    this->motor = motor;
+/*
+int Regulator::getControlPercent() {
+    return round(value / setpoint * 100);
 }
+*/

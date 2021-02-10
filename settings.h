@@ -2,10 +2,11 @@
 #define SETTINGS_H
 #pragma once
 
-#include "regulator.h"
-#include "clock.h"
-#include "motor.h"
-#include "sensor.h"
+#define LOW_TEMP_LIMIT 5
+#define HIGHT_TEMP_LIMIT 25
+
+#define LOW_TIME_LIMIT 0
+#define HIGHT_TIME_LIMIT 86400000
 
 class Settings
 {
@@ -13,18 +14,17 @@ class Settings
 friend class Monitor;
 
 private:
-    unsigned int startTime;
-    unsigned int endTime;
+    int startTime;
+    int endTime;
     short economTemp;
     short comfortTemp;
 
 public:
     Settings();
-    void setStartTime(unsigned int start);
-    void setEndTime(unsigned int end);
+    void setStartTime(int start);
+    void setEndTime(int end);
     void setEconomTemp(short e);
     void setComfortTemp(short c);
-
 };
 
 #endif // SETTINGS_H

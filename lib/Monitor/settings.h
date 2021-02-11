@@ -3,21 +3,21 @@
 #pragma once
 
 #define LOW_TEMP_LIMIT 5
-#define HIGHT_TEMP_LIMIT 25
+#define HIGH_TEMP_LIMIT 25
 
 #define LOW_TIME_LIMIT 0
-#define HIGHT_TIME_LIMIT 86400000
+#define HIGH_TIME_LIMIT 86400000
 
 class Settings
 {
 
-friend class Monitor;
+    friend class Monitor;
 
 private:
-    int startTime;
-    int endTime;
-    short economTemp;
-    short comfortTemp;
+    int startTime = 43200000;
+    int endTime = 64800000;
+    short economTemp = 10;
+    short comfortTemp = 20;
 
 public:
     Settings();
@@ -25,6 +25,11 @@ public:
     void setEndTime(int end);
     void setEconomTemp(short e);
     void setComfortTemp(short c);
+
+    int getStartTime();
+    int getEndTime();
+    short getEconomTemp();
+    short getComfortTemp();
 };
 
 #endif // SETTINGS_H

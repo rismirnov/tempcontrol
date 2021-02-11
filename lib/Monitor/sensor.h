@@ -5,8 +5,9 @@
 class Sensor
 {
 protected:
-    int data;
+    float data;
     int address;
+
 public:
     Sensor();
     void setAddress(int address);

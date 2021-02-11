@@ -2,11 +2,13 @@
 
 Regulator::Regulator() {}
 
-void Regulator::setSetpoint(float setpoint) {
+void Regulator::setSetpoint(float setpoint)
+{
     this->setpoint = setpoint;
 }
 
-float Regulator::getError() {
+float Regulator::getError()
+{
     return error;
 }
 /*

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Панель управления</title>
+	<meta charset="utf-8">
+	<link href="bulma.min.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+	<div class="container p-5">
+		<div class="columns">
+			<div class="column">
+				<div class="card">
+					<header class="card-header">
+						<p class="card-header-title has-text-info"> Управление </p>
+					</header>
+					<div class="card-content">
+						<form id="control">
+							<div class="field">
+								<label class="label">Температура в режиме <span
+										class="has-text-success">КОМФОРТ</span></label>
+								<div class="control">
+									<input class="input" id="comfort" name="comfort" type="text" value="20"
+										placeholder="20">
+								</div>
+							</div>
+							<div class="field">
+								<label class="label">Температура в режиме <span
+										class="has-text-warning">ЭКОНОМ</span></label>
+								<div class="control">
+									<input class="input" id="econom" name="econom" type="text" value="10"
+										placeholder="10">
+								</div>
+							</div>
+							<div class="field">
+								<label class="label">Интервал времени <span class="has-text-warning">ЭКОНОМ</span>
+								</label>
+							</div>
+							<div class="field is-horizontal">
+								<div class="field-body">
+									<div class="field">
+										<div class="control">
+											<input class="input" id="start" name="start" type="time" value="18:00">
+										</div>
+									</div>
+									<div class="field">
+										<div class="control">
+											<input class="input" id="end" name="end" type="time" value="20:00">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="field">
+								<div class="control">
+									<button class="button is-primary is-fullwidth">Сохранить</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="card">
+					<header class="card-header">
+						<p class="card-header-title has-text-info"> Температура </p>
+					</header>
+					<div class="card-content has-text-centered">
+						<h1 class="title is-1 has-text-primary"><span id="temp">20</span><span>&deg; C</span></h1>
+						<div class="content">
+							<p>Температура в помещении</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+
+		fetch('/getsetup', {
+			method: 'GET',
+		}).then((response) => {
+			return response.json();
+		}).then((data) => {
+			document.getElementById("comfort").value = data.comfortTemp;
+			document.getElementById("econom").value = data.economTemp;
+			document.getElementById("start").value = timeReverseConvert(data.startTime);
+			document.getElementById("end").value = timeReverseConvert(data.endTime);
+		});
+
+		document.getElementById("control").addEventListener("submit", function (e) {
+			e.preventDefault();
+			alert("Настройки обновлены");
+
+			const fd = new FormData(this);
+
+			let start = fd.get("start");
+			let end = fd.get("end");
+
+			const now = new Date();
+			let time = now.getHours() + ":" + now.getMinutes();
+
+			start = timeForwardConvert(start.split(":"));
+			end = timeForwardConvert(end.split(":"));
+			time = timeForwardConvert(time.split(":"));
+
+			fd.set("start", start);
+			fd.set("end", end);
+			fd.set("time", time);
+
+			fetch('/setup', {
+				method: 'POST',
+				body: fd
+			});
+		});
+		// time = hour:min
+		function timeForwardConvert(time) {
+			return (time[0] * 60 + time[1]) * 60 * 1000
+		}
+
+		function timeReverseConvert(time) {
+			let minutes = Math.floor((duration / (1000 * 60)) % 60);
+			let hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+			hours = (hours < 10) ? "0" + hours : hours;
+			minutes = (minutes < 10) ? "0" + minutes : minutes;
+			return hours + ":" + minutes;
+		}
+
+		setInterval(function () {
+			fetch('/data', {
+				method: 'GET',
+			}).then((response) => {
+				return response.text();
+			}).then((data) => {
+				document.getElementById("temp").textContent = data;
+			});
+		}, 1000);
+	</script>
+</body>
+
+</html>
